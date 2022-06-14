@@ -1,0 +1,61 @@
+@import "./_resultPage.scss";
+@import "./_searchPage.scss";
+// @import "./_card.scss";
+@import "./_buttonStyle.scss";
+
+
+.home {
+  &__wrapper {
+    &--absolute {
+      // position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+
+     
+    }
+
+    &__header {
+      text-align: center;
+
+      h1 {
+        position: relative;
+        top: 5vh;
+        font-size: 8vh;
+        font-family: 'Bigelow Rules';
+        color:#fff;
+      }
+      p {
+        position: relative;
+        top: 5vh;
+        font-size: 4vh;
+        color:#fff;
+      }
+
+    }
+
+    &__center {
+      display: flex;
+      justify-content: center;
+      align-items: center;  
+      // position: relative;
+      top: 20vh;    
+
+
+      &__button {
+        outline: none;
+        background: #13547a;
+        color: #fff;
+        margin: 0, 2vh;
+        font-size: 3vh;
+        padding: 3vh, 5vh;
+        border-radius: 3vh;
+      }
+      > a {
+        margin: 8px;
+      }
+    }
+  }
+}
+
