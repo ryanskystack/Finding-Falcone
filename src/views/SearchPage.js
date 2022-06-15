@@ -67,8 +67,8 @@ const ResultsPage = () => {
   )
 
   return (
-    <div className="search__wrapper--absolute" style={{height:isLoading&&'100vh'}}>
-      <div >
+    <div>
+      <div  className="search__wrapper--absolute" style={{height:isLoading&&'100vh'}}>
          <Header />
       </div>
       <div className="home__wrapper__center">
