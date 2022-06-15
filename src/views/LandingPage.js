@@ -15,10 +15,11 @@ const LandingPage = () => {
                 <Link to="/search">
                     <button className="home__wrapper__center__button">Start task</button>
                 </Link>
+                <div className="home__wrapper__center__footer">
+                   <Footer />
+                </div>    
             </div>
-            <div className="result__footer">
-               <Footer />
-            </div>
+
         </div>
     );
 }

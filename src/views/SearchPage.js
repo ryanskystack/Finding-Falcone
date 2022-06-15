@@ -67,7 +67,7 @@ const ResultsPage = () => {
   )
 
   return (
-    <div className="home__wrapper--absolute">
+    <div className="search__wrapper--absolute" style={{height:isLoading&&'100vh'}}>
       <div >
          <Header />
       </div>
@@ -75,7 +75,7 @@ const ResultsPage = () => {
         {
           isLoading ? <div>Loading...</div> : <SearchContainer />
         }
-        <div className="result__footer">
+        <div className="home__wrapper__center__footer">
           <Footer />
         </div>
       </div>

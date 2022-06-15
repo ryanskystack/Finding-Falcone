@@ -28,7 +28,7 @@ const ResultsPage = () => {
             </Link>
           </div>
         </div>  
-        <div className="result__footer">
+        <div>
            <Footer />
         </div>
      </>

@@ -8,11 +8,14 @@
   &__wrapper {
     &--absolute {
       // position: absolute;
+      height: 100vh;
       top: 0;
       bottom: 0;
       left: 0;
       right: 0;
-
+      background: linear-gradient(-30deg, #13547a, #80d0c7, #9795f0, #fbc8d4);
+      filter: hue-rotate(120deg);
+      animation: animate 10s linear infinite;
      
     }
 
@@ -39,8 +42,11 @@
       display: flex;
       justify-content: center;
       align-items: center;  
+      margin-top: 60px;
+      flex-direction: column;
+
       // position: relative;
-      top: 20vh;    
+      // top: 20vh;    
 
 
       &__button {
@@ -55,7 +61,26 @@
       > a {
         margin: 8px;
       }
+      &__footer{
+        text-align: center;
+        font-size: 16px;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;  
+        position: absolute;
+        bottom: 20px;
+        width: 100%;
+      }
     }
   }
+}
+@keyframes animate {
+	0% {
+		filter: hue-rotate(0deg)
+	}
+	100% {
+		filter: hue-rotate(360deg)
+	}
 }
 

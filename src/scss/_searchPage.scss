@@ -1,4 +1,17 @@
 .search {
+    &__wrapper {
+        &--absolute {
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(-30deg, #13547a, #80d0c7, #9795f0, #fbc8d4);
+            filter: hue-rotate(120deg);
+            animation: animate 10s linear infinite;
+           
+        }
+        
+    }
     &__center {    
         display: flex;
         justify-content: center;
