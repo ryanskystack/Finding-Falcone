@@ -35,13 +35,10 @@ const SelectionItem = ({index}) => {
   const [planet, setPlanet] = React.useState('');
   const [vehicle, setVehicle] = React.useState('');
   const handlePlanetChange = (event) => {
-    console.log('index:',index);
     setPlanet(event.target.value);
   
     let payload=[...selectedPlanets];
     payload[index]=event.target.value;
-    console.log('payload[index]:',payload[index]);
-    console.log('payload:',payload);
     dispatch(addPlanet(payload));
 
   };
@@ -69,18 +66,32 @@ const SelectionItem = ({index}) => {
 
 
   React.useEffect(() => {
-
-  //remove selected rocket's quantity from the rockets arrayto be a list to be selected
+    let payload=[...rockets]; //copy the array
+  //Reduce selected rocket's quantity from the rockets array to be a list to be selected
   selectedRockets.forEach(element => {
-    if (element!==vehicle) {
-      console.log('666 toSelectRockets:',toSelectRockets);
-      let payload=toSelectRockets.map(obj =>
-        obj.name === element ? { ...obj, total_no: (obj.total_no)-1 } : obj
-      );
-      console.log('333 payload:',payload);
-      dispatch(addToSelectRockets(payload));
-    }
+    payload=payload.map(item=>{
+      if (item.name===element) {
+        return { ...item, total_no: (item.total_no)-1 } 
+      }else {
+        return item
+      }
+    }    )
+
+
+    // if (element!==vehicle) {
+      // console.log('666 toSelectRockets:',toSelectRockets);
+      // let payload=toSelectRockets.map(obj =>
+      //   obj.name === element ? { ...obj, total_no: (obj.total_no)-1 } : obj
+      // );
+      // console.log('333 payload:',payload);
+      // dispatch(addToSelectRockets(payload));
+    // }
+
+   
+
+
   })
+    dispatch(addToSelectRockets(payload));
   }, [selectedRockets]);
   
 
@@ -91,7 +102,7 @@ const SelectionItem = ({index}) => {
 
   return (
     <div >
-        <div className='search__center'>
+        <div className='search__center' style={{marginRight:20}}>
           <div style={{marginBottom:20,fontSize:20}}> Destination {index+1}</div>
 
           <Box sx={{ minWidth: 120 }}>
@@ -114,7 +125,8 @@ const SelectionItem = ({index}) => {
               </Select>
             </FormControl>
           </Box>
-          <FormControl>
+          {
+            planet!==''?          <FormControl>
             <RadioGroup
               aria-labelledby="vehicle-radio-buttons-group"
               name="vehicle-radio-buttons-group"
@@ -142,6 +154,10 @@ const SelectionItem = ({index}) => {
                 )}
             </RadioGroup>
           </FormControl>
+          :null
+          }
+
+
         </div>
     </div>  
   );
