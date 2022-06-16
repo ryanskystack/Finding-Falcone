@@ -72,7 +72,7 @@ const SelectionItem = ({index}) => {
     //     return item
     //   }
     // }    )
-    payload=toSelectRockets.map(obj =>
+    payload=payload.map(obj =>
         obj.name === element ? { ...obj, total_no: (obj.total_no)-1 } : obj
       );
 
