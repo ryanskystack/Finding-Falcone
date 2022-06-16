@@ -33,7 +33,14 @@ const ResultsPage = () => {
   const selectedRockets=useSelector(addRocket).payload.reducer.selectedRockets;
   const selectedPlanets=useSelector(addPlanet).payload.reducer.selectedPlanets;
   const [isLoading, setIsLoading] = useState(true);
-
+//check the vehicles select to adjust layout of UI
+  var showVehicles=false;
+  selectedRockets.map(r=>{
+    if (r!=='') {
+      return showVehicles=true;
+    }
+  }
+  )
 
 
   useEffect(()=>{
@@ -62,7 +69,7 @@ const ResultsPage = () => {
 
   return (
 
-    <div  className="search__wrapper--absolute" style={{height:isLoading&&'100vh'}}>
+    <div  className="search__wrapper--absolute" style={{height:showVehicles&&'unset'}}>
       <Header />
       <div className="home__wrapper__center">
         {
