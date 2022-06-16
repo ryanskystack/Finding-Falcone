@@ -69,14 +69,16 @@ const SelectionItem = ({index}) => {
     let payload=[...rockets]; //copy the array
   //Reduce selected rocket's quantity from the rockets array to be a list to be selected
   selectedRockets.forEach(element => {
-    payload=payload.map(item=>{
-      if (item.name===element) {
-        return { ...item, total_no: (item.total_no)-1 } 
-      }else {
-        return item
-      }
-    }    )
-
+    // payload=payload.map(item=>{
+    //   if (item.name===element) {
+    //     return { ...item, total_no: (item.total_no)-1 } 
+    //   }else {
+    //     return item
+    //   }
+    // }    )
+    payload=toSelectRockets.map(obj =>
+        obj.name === element ? { ...obj, total_no: (obj.total_no)-1 } : obj
+      );
 
     // if (element!==vehicle) {
       // console.log('666 toSelectRockets:',toSelectRockets);
@@ -86,9 +88,6 @@ const SelectionItem = ({index}) => {
       // console.log('333 payload:',payload);
       // dispatch(addToSelectRockets(payload));
     // }
-
-   
-
 
   })
     dispatch(addToSelectRockets(payload));

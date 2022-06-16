@@ -28,6 +28,7 @@ before the years are up, she will be exiled for another 15 years!
 
 ![](assets/vehicles.png)
 
+<<<<<<< HEAD
 ## PROBLEM 1: FINDING FALCONE
 King Shan has received intelligence that AI Falcone is in hiding in one of these 6 planets - DonLon, Enchai, Jebing, Sapir,
 Lerbin & Pingasor. However, he has limited resources at his disposal and can send his army to only 4 of these planets.
@@ -234,3 +235,6 @@ You could choose to go with a completely different user experience. But you will
 
 
 ![](assets/mockup13.png)
+=======
+Have a lovely day!
+>>>>>>> de09af42fa9251c013f9a5fdfbd5253085bf0111
