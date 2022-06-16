@@ -4,31 +4,31 @@ import { Link } from 'react-router-dom';
 import SelectionItem from './SelectionItem';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  fetchRockets, 
+  fetchVehicles, 
   fetchPlanets,
-  addRocket,
+  addVehicles,
   addPlanet,
-  addToSelectRockets,
+  addToSelectVehicles,
   reset
 } from '../redux/slice';
 
 
 const SearchContainer = () => {
 
-  const rockets = useSelector(fetchRockets).payload.reducer.rockets;
+  const vehicles = useSelector(fetchVehicles).payload.reducer.vehicles;
 
   const planets = useSelector(fetchPlanets).payload.reducer.planets;
 
-  const selectedRockets=useSelector(addRocket).payload.reducer.selectedRockets;
+  const selectedVehicles=useSelector(addVehicles).payload.reducer.selectedVehicles;
   const selectedPlanets=useSelector(addPlanet).payload.reducer.selectedPlanets;
 
   var totalTime=0;
   for (let index = 0; index < 4; index++) {
     let planet = selectedPlanets[index];
-    let rocket = selectedRockets[index];
-    if (planet!==''&&rocket!=='') {
+    let vehicle = selectedVehicles[index];
+    if (planet!==''&&vehicle!=='') {
       let distance=planets.filter(p=>p.name===planet)[0].distance;
-      let speed=rockets.filter(r=>r.name===rocket)[0].speed;
+      let speed=vehicles.filter(r=>r.name===vehicle)[0].speed;
       totalTime+=distance/speed;
       console.log('11distance:',distance);
       console.log('11speed:',speed);

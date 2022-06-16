@@ -4,33 +4,33 @@ export const slice = createSlice({
   name: 'searchSolution',
   initialState: {
     token: '',
-    rockets: [],
+    vehicles: [],
     planets: [],
-    selectedRockets:['','','',''],
+    selectedVehicles:['','','',''],
     selectedPlanets:['','','',''],
-    toSelectRockets:[],
+    toSelectVehicles:[],
   },
   reducers: {
     fetchToken: (state, action) => {
       state.token = action.payload;
     },
-    fetchRockets: (state, action) => {
-      state.rockets = action.payload;
+    fetchVehicles: (state, action) => {
+      state.vehicles = action.payload;
     },
     fetchPlanets: (state, action) => {
       state.planets = action.payload;
     },
-    addRocket: (state, action) => {
-      state.selectedRockets = action.payload;
+    addVehicles: (state, action) => {
+      state.selectedVehicles = action.payload;
     },
     addPlanet: (state, action) => {
       state.selectedPlanets = action.payload;
     },
-    addToSelectRockets: (state, action) => {
-      state.toSelectRockets = action.payload;
+    addToSelectVehicles: (state, action) => {
+      state.toSelectVehicles = action.payload;
     },
     reset: (state) => {
-        state.selectedRockets = [];
+        state.selectedVehicles = [];
         state.selectedPlanets = [];
     },
   },
@@ -38,11 +38,11 @@ export const slice = createSlice({
 
 export const { 
     fetchToken,
-    fetchRockets, 
+    fetchVehicles, 
     fetchPlanets,
-    addRocket,
+    addVehicles,
     addPlanet,
-    addToSelectRockets,
+    addToSelectVehicles,
     reset
  } = slice.actions
 

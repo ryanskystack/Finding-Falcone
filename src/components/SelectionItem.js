@@ -10,23 +10,23 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  fetchRockets, 
+  fetchVehicles, 
   fetchPlanets,
-  addRocket,
+  addVehicles,
   addPlanet,
-  addToSelectRockets,
+  addToSelectVehicles,
   reset
 } from '../redux/slice';
 
 
 const SelectionItem = ({index}) => {
   const dispatch = useDispatch();
-  const rockets = useSelector(fetchRockets).payload.reducer.rockets;
+  const vehicles = useSelector(fetchVehicles).payload.reducer.vehicles;
   const planets = useSelector(fetchPlanets).payload.reducer.planets;
-  const selectedRockets=useSelector(addRocket).payload.reducer.selectedRockets;
+  const selectedVehicles=useSelector(addVehicles).payload.reducer.selectedVehicles;
   const selectedPlanets=useSelector(addPlanet).payload.reducer.selectedPlanets;
 
-  const toSelectRockets=useSelector(addToSelectRockets).payload.reducer.toSelectRockets;
+  const toSelectVehicles=useSelector(addToSelectVehicles).payload.reducer.toSelectVehicles;
   // const toSelectPlanets=useSelector(removePlanet).payload.reducer.toSelectPlanets;
   const [planet, setPlanet] = React.useState('');
   const [vehicle, setVehicle] = React.useState('');
@@ -40,9 +40,9 @@ const SelectionItem = ({index}) => {
   };
   const handleVehicleChange = (event) => {
     setVehicle(event.target.value);
-    let payload=[...selectedRockets];
+    let payload=[...selectedVehicles];
     payload[index]=event.target.value;
-    dispatch(addRocket(payload));
+    dispatch(addVehicles(payload));
 
 
 
@@ -57,14 +57,14 @@ const SelectionItem = ({index}) => {
        toSelectPlanets=toSelectPlanets.filter(item=>item.name!==element)
     }
   })
-  // var toSelectRockets
-  // var toSelectRockets=[...rockets]
+  // var toSelectVehicles
+  // var toSelectVehicles=[...vehicles]
 
 
   React.useEffect(() => {
-    let payload=[...rockets]; //copy the array
-  //Reduce selected rocket's quantity from the rockets array to be a list to be selected
-  selectedRockets.forEach(element => {
+    let payload=[...vehicles]; //copy the array
+  //Reduce selected rocket's quantity from the vehicles array to be a list to be selected
+  selectedVehicles.forEach(element => {
     // payload=payload.map(item=>{
     //   if (item.name===element) {
     //     return { ...item, total_no: (item.total_no)-1 } 
@@ -77,23 +77,23 @@ const SelectionItem = ({index}) => {
       );
 
     // if (element!==vehicle) {
-      // console.log('666 toSelectRockets:',toSelectRockets);
-      // let payload=toSelectRockets.map(obj =>
+      // console.log('666 toSelectVehicles:',toSelectVehicles);
+      // let payload=toSelectVehicles.map(obj =>
       //   obj.name === element ? { ...obj, total_no: (obj.total_no)-1 } : obj
       // );
       // console.log('333 payload:',payload);
-      // dispatch(addToSelectRockets(payload));
+      // dispatch(addToSelectVehicles(payload));
     // }
 
   })
-    dispatch(addToSelectRockets(payload));
-  }, [selectedRockets]);
+    dispatch(addToSelectVehicles(payload));
+  }, [selectedVehicles]);
   
 
   // console.log('selectedPlanets:',selectedPlanets);
   // console.log('toSelectPlanets:',toSelectPlanets);
-  // console.log('selectedRockets:',selectedRockets);
-  // console.log('toSelectRockets:',toSelectRockets);
+  // console.log('selectedVehicles:',selectedVehicles);
+  // console.log('toSelectVehicles:',toSelectVehicles);
 
   return (
     <div >
@@ -128,7 +128,7 @@ const SelectionItem = ({index}) => {
               value={vehicle}
               onChange={handleVehicleChange}
             >
-                {toSelectRockets.map((vehicle,index) => {
+                {toSelectVehicles.map((vehicle,index) => {
                     return <FormControlLabel 
                     key={index} 
                     value={vehicle.name} 

@@ -4,11 +4,11 @@ import axios from "axios";
 import { useSelector, useDispatch } from 'react-redux';
 import {
   fetchToken,
-  fetchRockets, 
+  fetchVehicles, 
   fetchPlanets,
-  addRocket,
+  addVehicles,
   addPlanet,
-  addToSelectRockets,
+  addToSelectVehicles,
   reset
 } from '../redux/slice';
 import { Link } from 'react-router-dom';
@@ -25,17 +25,17 @@ const mappedRequest=[
 
 const ResultsPage = () => {
   const dispatch = useDispatch();
-  const rockets = useSelector(fetchRockets).payload.reducer.rockets;
-  // console.log('rockets:',rockets);
+  const vehicles = useSelector(fetchVehicles).payload.reducer.vehicles;
+  // console.log('vehicles:',vehicles);
 
   const planets = useSelector(fetchPlanets).payload.reducer.planets;
   // console.log('planets:',planets);
-  const selectedRockets=useSelector(addRocket).payload.reducer.selectedRockets;
+  const selectedVehicles=useSelector(addVehicles).payload.reducer.selectedVehicles;
   const selectedPlanets=useSelector(addPlanet).payload.reducer.selectedPlanets;
   const [isLoading, setIsLoading] = useState(true);
 //check the vehicles select to adjust layout of UI
   var showVehicles=false;
-  selectedRockets.map(r=>{
+  selectedVehicles.map(r=>{
     if (r!=='') {
       return showVehicles=true;
     }
@@ -55,8 +55,8 @@ const ResultsPage = () => {
 
       axios.get(mappedRequest[1].vehicles)
       .then(function (response) {
-          dispatch(fetchRockets(response.data.slice(0,4)));
-          dispatch(addToSelectRockets(response.data.slice(0,4)));
+          dispatch(fetchVehicles(response.data.slice(0,4)));
+          dispatch(addToSelectVehicles(response.data.slice(0,4)));
           setIsLoading(false);
         })
         .catch(function (error) {
