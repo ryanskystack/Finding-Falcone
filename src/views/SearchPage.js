@@ -8,6 +8,7 @@ import {
   fetchPlanets,
   addRocket,
   addPlanet,
+  addToSelectRockets,
   reset
 } from '../redux/slice';
 import { Link } from 'react-router-dom';
@@ -19,7 +20,7 @@ import SearchContainer from '../components/SearchContainer';
 const mappedRequest=[
     { planets: 'https://5f5ff7f790cf8d00165573ed.mockapi.io/planets'},
     { vehicles: 'https://5f5ff7f790cf8d00165573ed.mockapi.io/vehicles'},
-    {token:'https://5f5ff7f790cf8d00165573ed.mockapi.io/token',header:'Accept: application/json'}
+    // {token:'https://5f5ff7f790cf8d00165573ed.mockapi.io/token',header:'Accept: application/json'}
 ]
 
 const ResultsPage = () => {
@@ -32,6 +33,8 @@ const ResultsPage = () => {
   const selectedRockets=useSelector(addRocket).payload.reducer.selectedRockets;
   const selectedPlanets=useSelector(addPlanet).payload.reducer.selectedPlanets;
   const [isLoading, setIsLoading] = useState(true);
+
+
 
   useEffect(()=>{
       axios.get(mappedRequest[0].planets)
@@ -48,21 +51,14 @@ const ResultsPage = () => {
       .then(function (response) {
           console.log('vehicles:',response.data.slice(0,4));
           dispatch(fetchRockets(response.data.slice(0,4)));
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-
-      axios.post(mappedRequest[2].token,{headers:mappedRequest[2].header})
-      .then(function (response) {
-          console.log('token:',response.data);
-          dispatch(fetchToken(response.data));
+          dispatch(addToSelectRockets(response.data.slice(0,4)));
           setIsLoading(false);
         })
         .catch(function (error) {
           console.log(error);
           setIsLoading(false);
         });
+        dispatch(fetchToken('PlmVXHswGEQxKJIpWnKCBtNMepseniTM'));
     },[]
   )
 

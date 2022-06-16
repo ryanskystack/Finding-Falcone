@@ -6,8 +6,9 @@ export const slice = createSlice({
     token: '',
     rockets: [],
     planets: [],
-    selectedRockets:[],
-    selectedPlanets:[],
+    selectedRockets:['','','',''],
+    selectedPlanets:['','','',''],
+    toSelectRockets:[],
   },
   reducers: {
     fetchToken: (state, action) => {
@@ -20,12 +21,15 @@ export const slice = createSlice({
       state.planets = action.payload;
     },
     addRocket: (state, action) => {
-      state.selectedRockets.push(action.payload)
+      state.selectedRockets = action.payload;
     },
     addPlanet: (state, action) => {
-        state.selectedPlanets.push(action.payload);
+      state.selectedPlanets = action.payload;
     },
-    reset: (state, action) => {
+    addToSelectRockets: (state, action) => {
+      state.toSelectRockets = action.payload;
+    },
+    reset: (state) => {
         state.selectedRockets = [];
         state.selectedPlanets = [];
     },
@@ -38,6 +42,7 @@ export const {
     fetchPlanets,
     addRocket,
     addPlanet,
+    addToSelectRockets,
     reset
  } = slice.actions
 

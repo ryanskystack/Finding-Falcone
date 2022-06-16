@@ -12,10 +12,10 @@ const SearchContainer = () => {
             Time take:{'0'}
           </div>
           <div className='search__center__rowGroup'>
+            <SelectionItem index={0}/>
             <SelectionItem index={1}/>
             <SelectionItem index={2}/>
             <SelectionItem index={3}/>
-            <SelectionItem index={4}/>
           </div>
     
     

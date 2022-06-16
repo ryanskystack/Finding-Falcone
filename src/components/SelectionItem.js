@@ -14,6 +14,7 @@ import {
   fetchPlanets,
   addRocket,
   addPlanet,
+  addToSelectRockets,
   reset
 } from '../redux/slice';
 
@@ -25,41 +26,77 @@ const SelectionItem = ({index}) => {
 
   const planets = useSelector(fetchPlanets).payload.reducer.planets;
   console.log('planets:',planets);
+
   const selectedRockets=useSelector(addRocket).payload.reducer.selectedRockets;
   const selectedPlanets=useSelector(addPlanet).payload.reducer.selectedPlanets;
+
+  const toSelectRockets=useSelector(addToSelectRockets).payload.reducer.toSelectRockets;
   // const toSelectPlanets=useSelector(removePlanet).payload.reducer.toSelectPlanets;
   const [planet, setPlanet] = React.useState('');
   const [vehicle, setVehicle] = React.useState('');
   const handlePlanetChange = (event) => {
-    console.log('event.target:',event.target);
+    console.log('index:',index);
     setPlanet(event.target.value);
-    dispatch(addPlanet(event.target.value));
+  
+    let payload=[...selectedPlanets];
+    payload[index]=event.target.value;
+    console.log('payload[index]:',payload[index]);
+    console.log('payload:',payload);
+    dispatch(addPlanet(payload));
+
   };
   const handleVehicleChange = (event) => {
     setVehicle(event.target.value);
-    dispatch(addRocket(event.target.value));
+    let payload=[...selectedRockets];
+    payload[index]=event.target.value;
+    dispatch(addRocket(payload));
+
+
+
   };
 
   var toSelectPlanets=planets
-//remove selected planets from the planets array to be a list to be selected
+
+//remove selected planets from the planets array to be a list to be selected  
+
   selectedPlanets.forEach(element => {
     if (element!==planet) {
        toSelectPlanets=toSelectPlanets.filter(item=>item.name!==element)
     }
   })
+  // var toSelectRockets
+  // var toSelectRockets=[...rockets]
+
+
+  React.useEffect(() => {
+
+  //remove selected rocket's quantity from the rockets arrayto be a list to be selected
+  selectedRockets.forEach(element => {
+    if (element!==vehicle) {
+      console.log('666 toSelectRockets:',toSelectRockets);
+      let payload=toSelectRockets.map(obj =>
+        obj.name === element ? { ...obj, total_no: (obj.total_no)-1 } : obj
+      );
+      console.log('333 payload:',payload);
+      dispatch(addToSelectRockets(payload));
+    }
+  })
+  }, [selectedRockets]);
+  
 
   console.log('selectedPlanets:',selectedPlanets);
-  console.log('toSelectPlanets:',toSelectPlanets)
+  // console.log('toSelectPlanets:',toSelectPlanets);
+  console.log('selectedRockets:',selectedRockets);
+  console.log('toSelectRockets:',toSelectRockets);
 
   return (
     <div >
         <div className='search__center'>
-          <div style={{marginBottom:20,fontSize:20}}> Destination {index}</div>
+          <div style={{marginBottom:20,fontSize:20}}> Destination {index+1}</div>
 
           <Box sx={{ minWidth: 120 }}>
             <FormControl fullWidth>
               <InputLabel id="planet-select-label" sx={{color:'#fff',fontSize:20}}>Select</InputLabel>
-              {console.log('111 planet type:', typeof planet)}
               <Select
                 labelId="planet-select-label"
                 id="planet-select"
@@ -69,7 +106,6 @@ const SelectionItem = ({index}) => {
                 onChange={handlePlanetChange}
               >
                 {toSelectPlanets.map((item,index) => {
-                  console.log('222 item:', item);
                     return <MenuItem key={index} value={item.name}>
                              {item.name}
                            </MenuItem>
@@ -85,15 +121,16 @@ const SelectionItem = ({index}) => {
               value={vehicle}
               onChange={handleVehicleChange}
             >
-                {rockets.map((vehicle,index) => {
+                {toSelectRockets.map((vehicle,index) => {
                     return <FormControlLabel 
                     key={index} 
                     value={vehicle.name} 
                     control={<Radio />} 
                     label={`${vehicle.name} (${vehicle.total_no})`}
                     //check whether the max distance of the vehicle is greater than the planet distance
-                    disabled={vehicle.max_distance<
-                      toSelectPlanets.filter(item=>item.name===planet)[0]?.distance
+                    disabled={
+                     (vehicle.max_distance<
+                      toSelectPlanets.filter(item=>item.name===planet)[0]?.distance || vehicle.total_no===0) ? true : false
                       }
                     sx={{
                         '&.label': {
