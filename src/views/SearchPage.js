@@ -26,10 +26,10 @@ const mappedRequest=[
 const ResultsPage = () => {
   const dispatch = useDispatch();
   const rockets = useSelector(fetchRockets).payload.reducer.rockets;
-  console.log('rockets:',rockets);
+  // console.log('rockets:',rockets);
 
   const planets = useSelector(fetchPlanets).payload.reducer.planets;
-  console.log('planets:',planets);
+  // console.log('planets:',planets);
   const selectedRockets=useSelector(addRocket).payload.reducer.selectedRockets;
   const selectedPlanets=useSelector(addPlanet).payload.reducer.selectedPlanets;
   const [isLoading, setIsLoading] = useState(true);
@@ -39,7 +39,6 @@ const ResultsPage = () => {
   useEffect(()=>{
       axios.get(mappedRequest[0].planets)
       .then(function (response) {
-          console.log('planets:',response.data);
           dispatch(fetchPlanets(response.data));
  
         })
@@ -49,7 +48,6 @@ const ResultsPage = () => {
 
       axios.get(mappedRequest[1].vehicles)
       .then(function (response) {
-          console.log('vehicles:',response.data.slice(0,4));
           dispatch(fetchRockets(response.data.slice(0,4)));
           dispatch(addToSelectRockets(response.data.slice(0,4)));
           setIsLoading(false);

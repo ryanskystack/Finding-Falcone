@@ -22,11 +22,7 @@ import {
 const SelectionItem = ({index}) => {
   const dispatch = useDispatch();
   const rockets = useSelector(fetchRockets).payload.reducer.rockets;
-  console.log('rockets:',rockets);
-
   const planets = useSelector(fetchPlanets).payload.reducer.planets;
-  console.log('planets:',planets);
-
   const selectedRockets=useSelector(addRocket).payload.reducer.selectedRockets;
   const selectedPlanets=useSelector(addPlanet).payload.reducer.selectedPlanets;
 
@@ -94,10 +90,10 @@ const SelectionItem = ({index}) => {
   }, [selectedRockets]);
   
 
-  console.log('selectedPlanets:',selectedPlanets);
+  // console.log('selectedPlanets:',selectedPlanets);
   // console.log('toSelectPlanets:',toSelectPlanets);
-  console.log('selectedRockets:',selectedRockets);
-  console.log('toSelectRockets:',toSelectRockets);
+  // console.log('selectedRockets:',selectedRockets);
+  // console.log('toSelectRockets:',toSelectRockets);
 
   return (
     <div >
