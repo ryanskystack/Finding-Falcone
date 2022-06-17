@@ -1,36 +1,29 @@
 import * as React from 'react';
 import "bootstrap/dist/css/bootstrap.css";
 import { useHistory  } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 import SelectionItem from './SelectionItem';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  fetchToken,
   fetchVehicles, 
   fetchPlanets,
   addVehicles,
   addPlanet,
-  addToSelectVehicles,
   setTime,
   setWarning,
-  reset
 } from '../redux/slice';
 
 
 const SearchContainer = () => {
   const dispatch = useDispatch();
   const vehicles = useSelector(fetchVehicles).payload.reducer.vehicles;
-
   const planets = useSelector(fetchPlanets).payload.reducer.planets;
-
   const selectedVehicles=useSelector(addVehicles).payload.reducer.selectedVehicles;
   const selectedPlanets=useSelector(addPlanet).payload.reducer.selectedPlanets;
   const [totalTime, setTotalTime] = React.useState(0);
   var isWarning=useSelector(setWarning).payload.reducer.isWarning;
-  // const [isWarning, setIsWarning] = React.useState(false);
   const history = useHistory();
 
-
+//calculate total time based on the selected vehicles and planets
   React.useEffect(()=>{
 
     let time=0;

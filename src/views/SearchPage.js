@@ -10,9 +10,7 @@ import {
   addPlanet,
   addToSelectVehicles,
   setWarning,
-  reset
 } from '../redux/slice';
-import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import SearchContainer from '../components/SearchContainer';
@@ -26,30 +24,22 @@ const mappedRequest=[
 
 const ResultsPage = () => {
   const dispatch = useDispatch();
-  const vehicles = useSelector(fetchVehicles).payload.reducer.vehicles;
-  // console.log('vehicles:',vehicles);
-
-  const planets = useSelector(fetchPlanets).payload.reducer.planets;
-  // console.log('planets:',planets);
-  const selectedVehicles=useSelector(addVehicles).payload.reducer.selectedVehicles;
   const selectedPlanets=useSelector(addPlanet).payload.reducer.selectedPlanets;
   var isWarning=useSelector(setWarning).payload.reducer.isWarning;
   const [isLoading, setIsLoading] = useState(true);
-//check the vehicles select to adjust layout of UI
-  var showVehicles=false;
-  selectedVehicles.map(r=>{
+  //check whether there is/are selected planets or vehickels, to adjust layout of UI
+  var isSelected=false;
+  selectedPlanets.map(r=>{
     if (r!=='') {
-      return showVehicles=true;
+      isSelected=true;
     }
-  }
-  )
+  })
 
 
   useEffect(()=>{
       axios.get(mappedRequest[0].planets)
       .then(function (response) {
           dispatch(fetchPlanets(response.data));
- 
         })
         .catch(function (error) {
           console.log(error);
@@ -71,7 +61,10 @@ const ResultsPage = () => {
 
   return (
 
-    <div  className="search__wrapper--absolute" style={{height:(showVehicles&&isWarning)&&'unset'}}>
+    <div  
+      className="search__wrapper--absolute" 
+      style={{height:((isSelected&&isWarning))&&'unset'}}
+    >
       <Header />
       <div className="home__wrapper__center">
         {

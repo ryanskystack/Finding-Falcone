@@ -10,13 +10,11 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  fetchToken,
   fetchVehicles, 
   fetchPlanets,
   addVehicles,
   addPlanet,
   addToSelectVehicles,
-  setTime,
   setWarning,
   reset,
   revert
@@ -31,15 +29,11 @@ const SelectionItem = ({index}) => {
   const planets = useSelector(fetchPlanets).payload.reducer.planets;
   const selectedVehicles=useSelector(addVehicles).payload.reducer.selectedVehicles;
   const selectedPlanets=useSelector(addPlanet).payload.reducer.selectedPlanets;
-
   const toSelectVehicles=useSelector(addToSelectVehicles).payload.reducer.toSelectVehicles;
-  // const toSelectPlanets=useSelector(removePlanet).payload.reducer.toSelectPlanets;
   const resetStatus=useSelector(reset).payload.reducer.reset;
-
 
   const handlePlanetChange = (event) => {
     setPlanet(event.target.value);
-  
     let payload=[...selectedPlanets];
     payload[index]=event.target.value;
     dispatch(addPlanet(payload));
@@ -65,43 +59,17 @@ const SelectionItem = ({index}) => {
        toSelectPlanets=toSelectPlanets.filter(item=>item.name!==element)
     }
   })
-  // var toSelectVehicles
-  // var toSelectVehicles=[...vehicles]
-
 
   React.useEffect(() => {
     let payload=[...vehicles]; //copy the array
   //Reduce selected rocket's quantity from the vehicles array to be a list to be selected
     selectedVehicles.forEach(element => {
-    // payload=payload.map(item=>{
-    //   if (item.name===element) {
-    //     return { ...item, total_no: (item.total_no)-1 } 
-    //   }else {
-    //     return item
-    //   }
-    // }    )
     payload=payload.map(obj =>
         obj.name === element ? { ...obj, total_no: (obj.total_no)-1 } : obj
       );
-
-    // if (element!==vehicle) {
-      // console.log('666 toSelectVehicles:',toSelectVehicles);
-      // let payload=toSelectVehicles.map(obj =>
-      //   obj.name === element ? { ...obj, total_no: (obj.total_no)-1 } : obj
-      // );
-      // console.log('333 payload:',payload);
-      // dispatch(addToSelectVehicles(payload));
-    // }
-
   })
     dispatch(addToSelectVehicles(payload));
   }, [selectedVehicles]);
-  
-
-  // console.log('selectedPlanets:',selectedPlanets);
-  // console.log('toSelectPlanets:',toSelectPlanets);
-  // console.log('selectedVehicles:',selectedVehicles);
-  // console.log('toSelectVehicles:',toSelectVehicles);
 
   React.useEffect(() => {
     if (resetStatus) {

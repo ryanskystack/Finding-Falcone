@@ -9,22 +9,15 @@ import {
   fetchPlanets,
   addVehicles,
   addPlanet,
-  addToSelectVehicles,
   setTime,
   reset
 } from '../redux/slice';
-import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 const ResultsPage = () => {
   const dispatch = useDispatch();
   const token = useSelector(fetchToken).payload.reducer.token;
-  const vehicles = useSelector(fetchVehicles).payload.reducer.vehicles;
-  // console.log('vehicles:',vehicles);
-
-  const planets = useSelector(fetchPlanets).payload.reducer.planets;
-  // console.log('planets:',planets);
   const selectedVehicles=useSelector(addVehicles).payload.reducer.selectedVehicles;
   const selectedPlanets=useSelector(addPlanet).payload.reducer.selectedPlanets;
   var time=useSelector(setTime).payload.reducer.time;
@@ -58,9 +51,7 @@ const ResultsPage = () => {
 
     return (
 
-      <div className="home__wrapper--absolute" 
-            // style={{height:isLoading&&'100vh'}}
-        >
+      <div className="home__wrapper--absolute" >
         <Header />
         <div className="home__wrapper__center" 
              style={{flexDirection:'column'}}
