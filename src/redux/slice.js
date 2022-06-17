@@ -9,6 +9,7 @@ export const slice = createSlice({
     selectedVehicles:['','','',''],
     selectedPlanets:['','','',''],
     toSelectVehicles:[],
+    isWarning:false,
     time:0,
     reset:false
   },
@@ -34,6 +35,9 @@ export const slice = createSlice({
     setTime: (state, action) => {
       state.time = action.payload;
     },  
+    setWarning: (state,action) => {
+      state.isWarning = action.payload;
+    },
     reset: (state) => {
         state.selectedVehicles = ['','','',''];
         state.selectedPlanets = ['','','',''];
@@ -54,6 +58,7 @@ export const {
     addPlanet,
     addToSelectVehicles,
     setTime,
+    setWarning,
     reset,
     revert
  } = slice.actions

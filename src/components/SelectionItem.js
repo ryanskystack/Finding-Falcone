@@ -17,6 +17,7 @@ import {
   addPlanet,
   addToSelectVehicles,
   setTime,
+  setWarning,
   reset,
   revert
 } from '../redux/slice';
@@ -42,6 +43,7 @@ const SelectionItem = ({index}) => {
     let payload=[...selectedPlanets];
     payload[index]=event.target.value;
     dispatch(addPlanet(payload));
+    dispatch(setWarning(false));
     dispatch(revert());
 
   };
@@ -50,8 +52,8 @@ const SelectionItem = ({index}) => {
     let payload=[...selectedVehicles];
     payload[index]=event.target.value;
     dispatch(addVehicles(payload));
+    dispatch(setWarning(false));
     dispatch(revert());
-
   };
 
   var toSelectPlanets=planets

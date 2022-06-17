@@ -13,9 +13,9 @@ const App = () => {
     <div>
       <Router>
         <Switch>
-          <Route exact path="/" component={LandingPage} />
-          <Route exact path="/search" component={SearchPage} />
-          <Route exact path="/result" component={ResultPage} />
+          <Route exact path='/' component={LandingPage} />
+          <Route exact path='/search' component={SearchPage} />
+          <Route exact path='/result' component={ResultPage} />
         </Switch>
       </Router>
     </div>

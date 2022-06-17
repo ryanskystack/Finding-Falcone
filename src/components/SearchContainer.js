@@ -1,5 +1,6 @@
 import * as React from 'react';
 import "bootstrap/dist/css/bootstrap.css";
+import { useHistory  } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import SelectionItem from './SelectionItem';
 import { useSelector, useDispatch } from 'react-redux';
@@ -11,6 +12,7 @@ import {
   addPlanet,
   addToSelectVehicles,
   setTime,
+  setWarning,
   reset
 } from '../redux/slice';
 
@@ -24,6 +26,10 @@ const SearchContainer = () => {
   const selectedVehicles=useSelector(addVehicles).payload.reducer.selectedVehicles;
   const selectedPlanets=useSelector(addPlanet).payload.reducer.selectedPlanets;
   const [totalTime, setTotalTime] = React.useState(0);
+  var isWarning=useSelector(setWarning).payload.reducer.isWarning;
+  // const [isWarning, setIsWarning] = React.useState(false);
+  const history = useHistory();
+
 
   React.useEffect(()=>{
 
@@ -37,16 +43,43 @@ const SearchContainer = () => {
       time+=distance/speed;
     }
   }
-  setTotalTime(time);
-  dispatch(setTime(time));
+    setTotalTime(time);
+    dispatch(setTime(time));
   }
   ,[selectedVehicles,selectedPlanets]);
 
-
+  const findHandler=()=>{
+    let isValidate=true;
+    //validation:all the planets and vehicles must be selected
+    selectedPlanets.forEach(p=>{
+      if (p==='') {
+        dispatch(setWarning(true));
+        isValidate=false;
+        return;
+      }
+    });
+    selectedVehicles.forEach(v=>{
+      if (v==='') {
+        dispatch(setWarning(true));
+        isValidate=false;
+        return;
+      }
+    }
+    );
+    if (isValidate) {
+       history.push('/result');
+    }   
+  }
 
   return (
     <div >
         <div className='search__center'>
+          {
+            isWarning&&
+              <div className='result__content' style={{color:'#dc3535'}}>
+                <p>Warning: <br/>All the planets and vehicles must be selected!</p><br/>
+              </div>
+          }
           <div className='search__center__content'>Select Planets you want to search in:</div>
           <div className='search__center__timeResult'>
             Time take:{totalTime}
@@ -61,9 +94,12 @@ const SearchContainer = () => {
     
         </div>
         <div className='search__center__buttonContainer'>
-            <Link to="/result">
-              <button className="search__center__button">Find Falcone!</button>
-            </Link>
+              <button 
+                className="search__center__button"
+                onClick={findHandler}
+              >
+                Find Falcone!
+              </button>
         </div>
     </div>  
   );
