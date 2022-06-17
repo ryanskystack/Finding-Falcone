@@ -9,6 +9,7 @@ import {
   addVehicles,
   addPlanet,
   addToSelectVehicles,
+  setWarning,
   reset
 } from '../redux/slice';
 import { Link } from 'react-router-dom';
@@ -32,6 +33,7 @@ const ResultsPage = () => {
   // console.log('planets:',planets);
   const selectedVehicles=useSelector(addVehicles).payload.reducer.selectedVehicles;
   const selectedPlanets=useSelector(addPlanet).payload.reducer.selectedPlanets;
+  var isWarning=useSelector(setWarning).payload.reducer.isWarning;
   const [isLoading, setIsLoading] = useState(true);
 //check the vehicles select to adjust layout of UI
   var showVehicles=false;
@@ -69,7 +71,7 @@ const ResultsPage = () => {
 
   return (
 
-    <div  className="search__wrapper--absolute" style={{height:showVehicles&&'unset'}}>
+    <div  className="search__wrapper--absolute" style={{height:(showVehicles&&isWarning)&&'unset'}}>
       <Header />
       <div className="home__wrapper__center">
         {
