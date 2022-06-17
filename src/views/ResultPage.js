@@ -1,4 +1,5 @@
 import React, { useEffect,useState }  from 'react';
+import { useHistory  } from 'react-router-dom';
 import "bootstrap/dist/css/bootstrap.css";
 import axios from "axios";
 import { useSelector, useDispatch } from 'react-redux';
@@ -29,6 +30,7 @@ const ResultsPage = () => {
   var time=useSelector(setTime).payload.reducer.time;
   const [isLoading, setIsLoading] = useState(true);
   const [result, setResult] = useState('');
+  const history = useHistory();
 
   useEffect(()=>{
     axios.post('https://5f5ff7f790cf8d00165573ed.mockapi.io/find',{
@@ -48,6 +50,11 @@ const ResultsPage = () => {
     );
   },[]);
 
+  const startAgainHandler=()=>{
+
+    dispatch(reset());
+    history.push('/search');
+  }
 
     return (
 
@@ -78,9 +85,12 @@ const ResultsPage = () => {
                 }
 
                 <div>
-                  <Link to="/search">
-                    <button className="home__wrapper__center__button">Start again</button>
-                  </Link>
+                    <button 
+                      className="home__wrapper__center__button"
+                      onClick={startAgainHandler}
+                    >
+                      Start again
+                    </button>
                 </div>
               </div>  
           }
