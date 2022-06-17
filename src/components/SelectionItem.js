@@ -10,16 +10,21 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { useSelector, useDispatch } from 'react-redux';
 import {
+  fetchToken,
   fetchVehicles, 
   fetchPlanets,
   addVehicles,
   addPlanet,
   addToSelectVehicles,
-  reset
+  setTime,
+  reset,
+  revert
 } from '../redux/slice';
 
 
 const SelectionItem = ({index}) => {
+  const [planet, setPlanet] = React.useState('');
+  const [vehicle, setVehicle] = React.useState('');
   const dispatch = useDispatch();
   const vehicles = useSelector(fetchVehicles).payload.reducer.vehicles;
   const planets = useSelector(fetchPlanets).payload.reducer.planets;
@@ -28,14 +33,16 @@ const SelectionItem = ({index}) => {
 
   const toSelectVehicles=useSelector(addToSelectVehicles).payload.reducer.toSelectVehicles;
   // const toSelectPlanets=useSelector(removePlanet).payload.reducer.toSelectPlanets;
-  const [planet, setPlanet] = React.useState('');
-  const [vehicle, setVehicle] = React.useState('');
+  const resetStatus=useSelector(reset).payload.reducer.reset;
+
+
   const handlePlanetChange = (event) => {
     setPlanet(event.target.value);
   
     let payload=[...selectedPlanets];
     payload[index]=event.target.value;
     dispatch(addPlanet(payload));
+    dispatch(revert());
 
   };
   const handleVehicleChange = (event) => {
@@ -43,8 +50,7 @@ const SelectionItem = ({index}) => {
     let payload=[...selectedVehicles];
     payload[index]=event.target.value;
     dispatch(addVehicles(payload));
-
-
+    dispatch(revert());
 
   };
 
@@ -64,7 +70,7 @@ const SelectionItem = ({index}) => {
   React.useEffect(() => {
     let payload=[...vehicles]; //copy the array
   //Reduce selected rocket's quantity from the vehicles array to be a list to be selected
-  selectedVehicles.forEach(element => {
+    selectedVehicles.forEach(element => {
     // payload=payload.map(item=>{
     //   if (item.name===element) {
     //     return { ...item, total_no: (item.total_no)-1 } 
@@ -94,6 +100,14 @@ const SelectionItem = ({index}) => {
   // console.log('toSelectPlanets:',toSelectPlanets);
   // console.log('selectedVehicles:',selectedVehicles);
   // console.log('toSelectVehicles:',toSelectVehicles);
+
+  React.useEffect(() => {
+    if (resetStatus) {
+      setPlanet('');
+      setVehicle('');
+    }
+  }
+  , [planet,vehicle,resetStatus]);
 
   return (
     <div >

@@ -2,11 +2,22 @@ import React from 'react';
 import Button from '@mui/material/Button';
 import "bootstrap/dist/css/bootstrap.css";
 // import './index.css';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  fetchToken,
+  fetchVehicles, 
+  fetchPlanets,
+  addVehicles,
+  addPlanet,
+  addToSelectVehicles,
+  reset
+} from '../redux/slice';
 
 const Header = () => {
+  const dispatch = useDispatch();
 
   const Reset = () => {
-    window.open("https://www.geektrust.com/");
+    dispatch(reset());
   };
 
   const RedirectToGeekTrust = () => {

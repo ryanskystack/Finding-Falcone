@@ -9,6 +9,8 @@ export const slice = createSlice({
     selectedVehicles:['','','',''],
     selectedPlanets:['','','',''],
     toSelectVehicles:[],
+    time:0,
+    reset:false
   },
   reducers: {
     fetchToken: (state, action) => {
@@ -29,10 +31,18 @@ export const slice = createSlice({
     addToSelectVehicles: (state, action) => {
       state.toSelectVehicles = action.payload;
     },
+    setTime: (state, action) => {
+      state.time = action.payload;
+    },  
     reset: (state) => {
-        state.selectedVehicles = [];
-        state.selectedPlanets = [];
+        state.selectedVehicles = ['','','',''];
+        state.selectedPlanets = ['','','',''];
+        state.reset = true;
     },
+    revert: (state) => {
+        state.reset = false;
+    }
+
   },
 })
 
@@ -43,7 +53,9 @@ export const {
     addVehicles,
     addPlanet,
     addToSelectVehicles,
-    reset
+    setTime,
+    reset,
+    revert
  } = slice.actions
 
 
